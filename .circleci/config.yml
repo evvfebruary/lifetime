@@ -9,7 +9,7 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints:
-            - "a4:cb:dd:39:f7:4c:6a:4b:78:e6:2b:aa:b1:1d:12:0e"
+            - "71:ee:4a:8e:be:5f:01:1f:47:9a:4b:1f:82:1a:90:73"
       - run: scp -o StrictHostKeyChecking=no -r ~/lifetime  evv@95.213.37.8:/home/ubuntu
       - run: ssh evv@95.213.37.8 sudop cp /home/ubuntu/lifetime/devops/lifetime.service /etc/systemd/system/
 #      - run: ssh -o StrictHostKeyChecking=no  sudo systemctl stop graphicone-dev
