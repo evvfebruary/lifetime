@@ -28,7 +28,7 @@ async def group_txt_photos_by_user(user_id=27196901):
     groups_info = await api.users.getSubscriptions(user_ids=user_id)
     groups_ids = groups_info['groups']['items']
     groups_info_parsed = await api.groups.getById(group_ids=",".join([str(each) for each in groups_ids]), fields = "description")
-    text_info_groups = [{"group_id":each["id"], "name":each["name"], "description":each["description"]} for each in groups_info_parsed]
+    text_info_groups = [{"group_id": each["id"], "name":each["name"], "description":each["description"]} for each in groups_info_parsed]
     for group in text_info_groups:
             group['post_photos'] = await get_post_urls(group['group_id'], api)
             time.sleep(1)
