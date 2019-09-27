@@ -18,7 +18,7 @@ async def photos_info_by_user(data="urls", user_id=27196901):
                         photos_by_album.get("items")]
 
     print(photo_infos)
-    session.close()
+    await session.close()
     if data is None:
         return photo_infos
     elif data == "urls":
