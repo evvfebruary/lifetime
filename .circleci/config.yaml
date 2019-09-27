@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.6.4
+
+    working_directory: ~/lifetime
+    steps:
+      - checkout
+      - add_ssh_keys:
+          fingerprints:
+            - "a4:cb:dd:39:f7:4c:6a:4b:78:e6:2b:aa:b1:1d:12:0e"
+      - run: scp -o StrictHostKeyChecking=no -r ~/lifetime  evv@95.213.37.8:/home/ubuntu
+      - run: ssh evv@95.213.37.8 sudop cp /home/ubuntu/lifetime/devops/lifetime.service /etc/systemd/system/
+#      - run: ssh -o StrictHostKeyChecking=no  sudo systemctl stop graphicone-dev
+#      - run: ssh -o StrictHostKeyChecking=n sudo systemctl start graphicone-dev
+#      - run: ssh -o StrictHostKeyChecking=no sudo systemctl is-active --quiet graphicone-dev
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
