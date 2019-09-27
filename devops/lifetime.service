@@ -1,0 +1,10 @@
+[Unit]
+Description = lifetime
+After = network.target
+
+[Service]
+WorkingDirectory = /home/ubuntu/lifetime
+ExecStart = /usr/bin/gunicorn3 -b 0.0.0.0:9090 app:app --log-level debug
+
+[Install]
+WantedBy = multi-user.target
