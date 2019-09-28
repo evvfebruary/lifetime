@@ -10,11 +10,13 @@ dash_index = 0
 
 @app.route('/wthdash')
 async def hello_world():
+    weather_logo = f"/home/ubuntu/lifetime/dashboards/weather/logo_weather.png"
     global dash_index
     dash_info = ["weather", "sea_temp"]
     form = request.args
     destination = form.get('destination')
     files = []
+    files.append(weather_logo)
     for info in dash_info:
         url = f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png"
         print(url)
