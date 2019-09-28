@@ -1,7 +1,8 @@
 import aiovk
 import features.user_features as uf
 import features.weather as wth
-from quart import Quart, request, jsonify
+from quart import Quart, request, jsonify, send_from_directory
+import glob
 
 app = Quart(__name__)
 
@@ -11,9 +12,15 @@ async def hello_world():
     return 'Hello World!'
 
 
-@app.route("/weather")
+# For realtime handling
+# @app.route("/weather")
+# async def weather_dashboard():
+#     return wth.get_dashboard("denpasar")
+
+@app.route("/weather_dash")
 async def weather_dashboard():
-    return wth.get_dashboard("denpasar")
+    destination = "denpasar"
+    return send_from_directory("/home/ubuntu/lifetime/dashboards/weather", f"{destination}_weater")
 
 
 if __name__ == '__main__':
