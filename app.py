@@ -9,7 +9,8 @@ app = Quart(__name__)
 
 @app.route('/wthdash')
 async def hello_world():
-    destination = request.form.get("destination")
+    form = request.args
+    destination = form.get('destination')
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
     return await send_file(f"/home/ubuntu/lifetime/dashboards/weather/{destination}_weather.png")
     # return await send_from_directory("/Users/evv/PycharmProjects/lifetime/dashboards/weather", f"{destination}_weater")
