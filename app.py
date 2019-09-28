@@ -16,11 +16,12 @@ async def hello_world():
     destination = form.get('destination')
     files = [f"/home/ubuntu/lifetime/dashboards/weather/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/weather/{destination}_{info}.png")]
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
+    to_return = files[dash_index]
     dash_index += 1
     if len(files) > dash_index - 1:
         dash_index = 0
-    print(files, dash_index, files[dash_index])
-    return await send_file(files[dash_index])
+    print(files, dash_index, to_return)
+    return await send_file(to_return)
     # return await send_from_directory("/Users/evv/PycharmProjects/lifetime/dashboards/weather", f"{destination}_weater")
 
 
