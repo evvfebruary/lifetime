@@ -14,7 +14,13 @@ async def hello_world():
     dash_info = ["weather", "sea_temp"]
     form = request.args
     destination = form.get('destination')
-    files = [f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png")]
+    files = []
+    for info in dash_info:
+        url = f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png"
+        print(url)
+        if os.path.exists(url):
+            files.append(url)
+    # files = [f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png")]
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
     to_return = files[dash_index]
     dash_index += 1
