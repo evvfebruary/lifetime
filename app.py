@@ -7,14 +7,21 @@ import glob
 
 app = Quart(__name__)
 dash_index = 0
+prev_ond = ''
+
 
 @app.route('/wthdash')
 async def hello_world():
     weather_logo = f"/home/ubuntu/lifetime/dashboards/weather/logo_weather.jpg"
     global dash_index
+    global prev_ond
     dash_info = ["weather", "sea_temp"]
     form = request.args
     destination = form.get('destination')
+    if prev_ond == '':
+        prev_ond = destination
+    if prev_ond != destination:
+        dash_index = 0
     files = []
     for info in dash_info:
         if info == "weather":
