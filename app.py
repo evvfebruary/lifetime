@@ -22,6 +22,7 @@ async def hello_world():
         prev_ond = destination
     if prev_ond != destination:
         dash_index = 0
+        prev_ond = destination
     files = []
     for info in dash_info:
         if info == "weather":
