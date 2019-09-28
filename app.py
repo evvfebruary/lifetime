@@ -1,15 +1,18 @@
 import aiovk
 import features.user_features as uf
 import features.weather as wth
-from quart import Quart, request, jsonify, send_from_directory
+from quart import Quart, request, jsonify, send_file
 import glob
 
 app = Quart(__name__)
 
 
-@app.route('/')
+@app.route('/wthdash')
 async def hello_world():
-    return 'Hello World!'
+    destination = "denpasar"
+    # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
+    return await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
+    # return await send_from_directory("/Users/evv/PycharmProjects/lifetime/dashboards/weather", f"{destination}_weater")
 
 
 # For realtime handling
@@ -17,10 +20,10 @@ async def hello_world():
 # async def weather_dashboard():
 #     return wth.get_dashboard("denpasar")
 
-@app.route("/weather_dash")
-async def weather_dashboard():
-    destination = "denpasar"
-    return send_from_directory("/home/ubuntu/lifetime/dashboards/weather", f"{destination}_weater")
+# @app.route("/wthdash")
+# async def weather_dashboard():
+#     destination = "denpasar"
+#     return await send_from_directory("/Users/evv/PycharmProjects/lifetime/dashboards/weather", f"{destination}_weater")
 
 
 if __name__ == '__main__':
