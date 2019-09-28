@@ -2,7 +2,6 @@ import plotly
 import requests
 import calendar
 import plotly.io as pio
-import plotly.io.to_image
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
