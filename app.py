@@ -13,7 +13,7 @@ def hello_world():
 
 @app.route("/weather")
 def weather_dashboard():
-    return  wth.get_dashboard("denpasar")
+    return wth.get_dashboard("denpasar")
 
 
 if __name__ == '__main__':
