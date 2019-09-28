@@ -19,7 +19,6 @@ async def hello_world():
     for info in dash_info:
         if info == "weather":
             files.append(weather_logo)
-        files.append(weather_logo)
         url = f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png"
         print(url)
         if os.path.exists(url):
