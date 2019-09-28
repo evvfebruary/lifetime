@@ -4,6 +4,7 @@ aiovk==3.0.0
 async-timeout==3.0.1
 attrs==19.1.0
 blinker==1.4
+certifi==2019.9.11
 chardet==3.0.4
 Click==7.0
 Flask==1.1.1
@@ -17,11 +18,17 @@ itsdangerous==1.1.0
 Jinja2==2.10.1
 MarkupSafe==1.1.1
 multidict==4.5.2
+plotly==4.1.1
 priority==1.3.0
+pytoml==0.1.21
 Quart==0.10.0
+requests==2.22.0
+retrying==1.3.3
+six==1.12.0
 sortedcontainers==2.1.0
 toml==0.10.0
 typing-extensions==3.7.4
+urllib3==1.25.6
 Werkzeug==0.16.0
 wsproto==0.15.0
 yarl==1.3.0
