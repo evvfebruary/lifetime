@@ -11,7 +11,7 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route("/weather)
+@app.route("/weather")
 def weather_dashboard():
     return  wth.get_dashboard("denpasar")
 
