@@ -15,7 +15,7 @@ jobs:
       - run: ssh -o StrictHostKeyChecking=no ubuntu@95.213.37.8 sudo cp /home/ubuntu/lifetime/devops/lifetime.service /etc/systemd/system/
       - run: ssh -o StrictHostKeyChecking=no ubuntu@95.213.37.8 sudo systemctl start lifetime
       - run: ssh -o StrictHostKeyChecking=no ubuntu@95.213.37.8 sudo systemctl daemon-reload
-      - run: ssh -o StrictHostKeyChecking=no ubuntu@95.213.37.8 pip3 install -r /home/ubuntu/lifetime/requirements.txt --user
+      - run: ssh -o StrictHostKeyChecking=no ubuntu@95.213.37.8 sudo pip3 install -r /home/ubuntu/lifetime/requirements.txt --user
       - run: ssh -o StrictHostKeyChecking=no ubuntu@95.213.37.8 sudo systemctl is-active --quiet lifetime
 workflows:
   version: 2
