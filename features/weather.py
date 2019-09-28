@@ -48,5 +48,5 @@ def get_dashboard(destination):
     fig.update_yaxes(title_text="Raindays count", row=1, col=1)
     fig.update_yaxes(title_text="C*", row=2, col=1)
     print("Ready to wrtie")
-    fig.write_image(f"{destination}_weather.png")
-    return
+    fig.write_image(f"/home/ubuntu/lifetime/dashboards/weather/{destination}_weather.png")
+    return fig.to_image()
