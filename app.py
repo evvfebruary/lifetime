@@ -7,12 +7,12 @@ app = Quart(__name__)
 
 
 @app.route('/')
-def hello_world():
+async def hello_world():
     return 'Hello World!'
 
 
 @app.route("/weather")
-def weather_dashboard():
+async def weather_dashboard():
     return wth.get_dashboard("denpasar")
 
 
