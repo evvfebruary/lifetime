@@ -26,8 +26,6 @@ async def hello_world():
         dash_index = 0
     to_return = files[dash_index]
     dash_index += 1
-    if dash_index > len(files) - 1:
-        dash_index = 0
     print(files, dash_index, to_return)
     return await send_file(to_return)
     # return await send_from_directory("/Users/evv/PycharmProjects/lifetime/dashboards/weather", f"{destination}_weater")
