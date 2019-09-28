@@ -1,5 +1,6 @@
 import aiovk
 import features.user_features as uf
+import features.weather as wth
 from quart import Quart, request, jsonify
 
 app = Quart(__name__)
@@ -10,10 +11,9 @@ def hello_world():
     return 'Hello World!'
 
 
-@app.route("/userfeatures/photos")
-async def photos_info_by_user():
-    photos = await uf.photos_info_by_user()
-    return jsonify(photos)
+@app.route("/weather)
+def weather_dashboard():
+    return  wth.get_dashboard("denpasar")
 
 
 if __name__ == '__main__':
