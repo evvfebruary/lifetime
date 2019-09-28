@@ -47,5 +47,6 @@ def get_dashboard(destination):
     fig.update_layout(height=700, width=700, showlegend=False)
     fig.update_yaxes(title_text="Raindays count", row=1, col=1)
     fig.update_yaxes(title_text="C*", row=2, col=1)
-
-    return fig.write_image("tst.png")
+    print("Ready to wrtie")
+    fig.write_image(f"{destination}_weather.png")
+    return
