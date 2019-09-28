@@ -7,7 +7,7 @@ User=ubuntu
 Group=ubuntu
 Type=simple
 WorkingDirectory = /home/ubuntu/lifetime
-ExecStart = /usr/bin/gunicorn3 -b 0.0.0.0:9090 app:app --log-level debug
+ExecStart = /usr/bin/python3 /home/ubuntu/lifetime/app.py
 
 [Install]
 WantedBy = multi-user.target
