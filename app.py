@@ -17,7 +17,9 @@ async def hello_world():
     files = [f"/home/ubuntu/lifetime/dashboards/weather/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/weather/{destination}_{info}.png")]
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
     dash_index += 1
-    return await send_file(files[dash_index % len(files)])
+    if len(files) > dash_index - 1:
+        dash_index = 0
+    return await send_file(files[dash_index])
     # return await send_from_directory("/Users/evv/PycharmProjects/lifetime/dashboards/weather", f"{destination}_weater")
 
 
