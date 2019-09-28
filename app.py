@@ -22,6 +22,8 @@ async def hello_world():
             files.append(url)
     # files = [f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png")]
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
+    if dash_index > len(files) - 1:
+        dash_index = 0
     to_return = files[dash_index]
     dash_index += 1
     if dash_index > len(files) - 1:
