@@ -1,8 +1,14 @@
 import plotly
 import requests
 import calendar
+import plotly.io as pio
+import plotly.io.to_image
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
+
+
+plotly.io.orca.config.executable = "/home/ubuntu/anaconda3/bin/orca"
+pio.orca.config.save()
 
 
 def get_historical_data(destination, year=2018):
@@ -22,7 +28,7 @@ def get_historical_data(destination, year=2018):
     return stats
 
 
-def weather_dashboard(destination):
+def get_dashboard(destination):
     weather_data = get_historical_data(destination)
     fig = make_subplots(
         rows=2, cols=1,
@@ -43,4 +49,4 @@ def weather_dashboard(destination):
     fig.update_yaxes(title_text="Raindays count", row=1, col=1)
     fig.update_yaxes(title_text="C*", row=2, col=1)
 
-    fig.show()
+    return fig.to_image()
