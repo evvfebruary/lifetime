@@ -10,11 +10,13 @@ dash_index = 0
 
 @app.route('/wthdash')
 async def hello_world():
+    global dash_index
     dash_info = ["weather", "sea_temp"]
     form = request.args
     destination = form.get('destination')
     files = [f"/home/ubuntu/lifetime/dashboards/weather/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/weather/{destination}_{info}.png")]
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
+    dash_index += 1
     return await send_file(files[dash_index % len(files)])
     # return await send_from_directory("/Users/evv/PycharmProjects/lifetime/dashboards/weather", f"{destination}_weater")
 
