@@ -48,4 +48,4 @@ def get_dashboard(destination):
     fig.update_yaxes(title_text="Raindays count", row=1, col=1)
     fig.update_yaxes(title_text="C*", row=2, col=1)
 
-    return fig.to_image()
+    return fig.write_image("tst.png")
