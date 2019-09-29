@@ -25,6 +25,7 @@ def summarize_user_interests(user_photos_urls,
                              path_to_model='/home/jupyter-vkcracker/researches/model',
                              path_to_detector='/home/jupyter-vkcracker/researches/detector'):
     user_photos_path = f'/home/jupyter-vkcracker/researches/data/{user_id}/'
+
     for url in user_photos_urls:
         if not os.path.exists(user_photos_path):
             os.makedirs(user_photos_path)
