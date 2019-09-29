@@ -39,8 +39,8 @@ async def user_features_all():
     for each in for_lda:
         for_image += each["post_photos"]
     # print(urls)
-    img_results = pr_img.summarize_user_interests(for_image, user_id)
-    lda_results,url_predict = pr_lda.group_topics(for_lda)
+    img_results,url_predict = pr_img.summarize_user_interests(for_image, user_id)
+    lda_results = pr_lda.group_topics(for_lda)
     if user_id in USERS_FEATURES:
         return jsonify(USERS_FEATURES[user_id])
     features_results = {"lda_results": lda_results,"img_url":url_predict, "img_results": img_results}
