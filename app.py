@@ -30,6 +30,15 @@ async def user_features_cus():
     USERS_FEATURES[user_id] = result_features
     return jsonify({"sum":result_features,"links":url_predict})
 
+@app.route("/cards")
+async def user_cards():
+    form = request.args
+    user_id = form.get('user_id')
+    cards = [
+        {"src": 'courshevel.jpg', "name": 'Courchevel', "country": "France"},
+        {"src": 'denpasar.jpg', "name": 'Denpasar', "country": "Indonesia"},
+    ]
+    return jsonify(cards)
 
 @app.route("/user_features_all")
 async def user_features_all():
@@ -43,7 +52,7 @@ async def user_features_all():
     for each in for_lda:
         for_image += each["post_photos"]
     # print(urls)
-    img_results,url_predict = pr_img.summarize_user_interests(for_image, user_id)
+    img_results, url_predict = pr_img.summarize_user_interests(for_image, user_id)
     lda_results = pr_lda.group_topics(for_lda)
     features_results = {"lda_results": lda_results,"img_url":url_predict, "img_results": img_results}
     USERS_FEATURES[user_id] = features_results
@@ -51,7 +60,7 @@ async def user_features_all():
 
 
 @app.route('/wthdash')
-async def hello_world():
+async def dashboards_info():
     diving_logo = f"/home/ubuntu/lifetime/dashboards/diving/logo_diving.jpg"
     weather_logo = f"/home/ubuntu/lifetime/dashboards/weather/logo_weather.jpg"
     food_logo = f"/home/ubuntu/lifetime/dashboards/food/logo_food.jpg"
