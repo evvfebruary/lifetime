@@ -37,7 +37,7 @@ async def hello_world():
     for info in dash_info:
         info_file = []
         directory = f"/home/ubuntu/lifetime/dashboards/{info}"
-        urls = [each.absolute() for each in pathlib.Path(directory).glob('**/*') if destination in each]
+        urls = [str(each.absolute()) for each in pathlib.Path(directory).glob('**/*') if destination in each]
         if len(urls) != 0:
             info_file.insert(0, logos[info])
             files_tmp.append(urls)
