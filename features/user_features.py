@@ -41,7 +41,7 @@ async def photos_info_by_user(data="urls", user_id=317799):
     api = aiovk.API(session)
     albums_request = api.photos.getAlbums(owner_id=user_id)
     albums = await albums_request
-    album_ids = [album_info["id"] for album_info in albums.get("items")][:2]
+    album_ids = [album_info["id"] for album_info in albums.get("items")]
     for album_id_cs in album_ids:
         photos_by_album = await api.photos.get(owner_id=user_id, album_id=album_id_cs)
         photo_infos += [{"url": photo_info["photo_604"], "date": photo_info['date']} for photo_info in
