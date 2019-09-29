@@ -38,7 +38,7 @@ async def hello_world():
         urls = [each for each in os.listdir(f"/home/ubuntu/lifetime/dashboards/{info}") if destination in each]
         if len(urls) != 0:
             info_file.insert(0, logos[info])
-        files_tmp.append(urls)
+            files_tmp.append(urls)
     files = [item for sublist in files_tmp for item in sublist]
     # files = [f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png")]
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
