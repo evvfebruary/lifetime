@@ -15,7 +15,7 @@ async def hello_world():
     diving_logo = f"/home/ubuntu/lifetime/dashboards/diving/logo_diving.jpg"
     weather_logo = f"/home/ubuntu/lifetime/dashboards/weather/logo_weather.jpg"
     food_logo = f"/home/ubuntu/lifetime/dashboards/food/logo_food.jpg"
-    skiing_logo = f"/home/ubuntu/lifetime/dashboards/food/logo_skiing.jpg"
+    skiing_logo = f"/home/ubuntu/lifetime/dashboards/skiing/logo_skiing.jpg"
 
     logos = {"weather": weather_logo,
              "diving": diving_logo,
