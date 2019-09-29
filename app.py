@@ -25,7 +25,7 @@ async def user_features_cus():
 
 
 @app.route("/user_features_all")
-async def user_features_cus():
+async def user_features_all():
     form = request.args
     user_id = form.get('user_id')
     for_lda = await uf.group_txt_photos_by_user(user_id)
