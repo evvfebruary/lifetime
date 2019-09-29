@@ -17,7 +17,7 @@ prev_ond = ''
 async def user_features_cus():
     form = request.args
     user_id = form.get('user_id')
-    urls = await uf.photos_info_by_user(user_id)
+    urls = await uf.photos_info_by_user(user_id=user_id)
     print(urls)
     return jsonify(pr.summarize_user_interests(urls, user_id))
 
