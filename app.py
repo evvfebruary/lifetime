@@ -12,13 +12,19 @@ prev_ond = ''
 
 @app.route('/wthdash')
 async def hello_world():
-    diving_logo = f"/home/ubuntu/lifetime/dashboards/diving/diving_weather.jpg"
+    diving_logo = f"/home/ubuntu/lifetime/dashboards/diving/logo_diving.jpg"
     weather_logo = f"/home/ubuntu/lifetime/dashboards/weather/logo_weather.jpg"
+    food_logo = f"/home/ubuntu/lifetime/dashboards/food/logo_food.jpg"
+    skiing_logo = f"/home/ubuntu/lifetime/dashboards/food/logo_skiing.jpg"
+
     logos = {"weather": weather_logo,
-             "diving": diving_logo}
+             "diving": diving_logo,
+             "food": food_logo,
+             "skiing": skiing_logo}
+
     global dash_index
     global prev_ond
-    dash_info = ["weather", "diving", "skiing", "food"]
+    dash_info = ["food", "weather", "diving", "skiing"]
     form = request.args
     destination = form.get('destination')
     if prev_ond == '':
@@ -26,11 +32,14 @@ async def hello_world():
     if prev_ond != destination:
         dash_index = 0
         prev_ond = destination
-    files = []
+    files_tmp = []
     for info in dash_info:
-        files.append(logos[info])
+        info_file = []
         urls = [each for each in os.listdir(f"/home/ubuntu/lifetime/dashboards/{info}") if destination in each]
-        files += urls
+        if len(urls) != 0:
+            info_file.insert(0, logos[info])
+        files_tmp.append(urls)
+    files = [item for sublist in files_tmp for item in sublist]
     # files = [f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png")]
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
     if dash_index > len(files) - 1:
