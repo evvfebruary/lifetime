@@ -17,6 +17,14 @@ prev_ond = ''
 
 USERS_FEATURES = {}
 
+CARDS_STACK = {
+    "diving": [{"src": 'courshevel.jpg', "name": 'Courchevel', "country": "France"}],
+    "skiing": [{"src": 'denpasar.jpg', "name": 'Denpasar', "country": "Indonesia"}],
+    "default": [{"src": 'madrid.jpg', "name": 'Madrid', "country": "Spain"},
+                {"src": 'barsa.jpg', "name": 'Barcelona', "country": "Spain"},
+                {"src": 'sochi.jpg', "name": 'Sochi', "country": "Indonesia"}]
+}
+
 
 @app.route("/user_features")
 async def user_features_cus():
@@ -28,17 +36,19 @@ async def user_features_cus():
     urls = await uf.photos_info_by_user(user_id=user_id)
     result_features, url_predict = pr_img.summarize_user_interests(urls, user_id)
     USERS_FEATURES[user_id] = result_features
-    return jsonify({"sum":result_features,"links":url_predict})
+    return jsonify({"sum": result_features, "links": url_predict})
+
 
 @app.route("/cards")
 async def user_cards():
     form = request.args
     user_id = form.get('user_id')
-    cards = [
-        {"src": 'courshevel.jpg', "name": 'Courchevel', "country": "France"},
-        {"src": 'denpasar.jpg', "name": 'Denpasar', "country": "Indonesia"},
-    ]
+    playable = USERS_FEATURES[user_id]["interests_playable"]
+    cards = []
+    for key in playable.keys():
+        cards += CARDS_STACK[key]
     return jsonify(cards)
+
 
 @app.route("/user_features_all")
 async def user_features_all():
@@ -54,7 +64,19 @@ async def user_features_all():
     # print(urls)
     img_results, url_predict = pr_img.summarize_user_interests(for_image, user_id)
     lda_results = pr_lda.group_topics(for_lda)
-    features_results = {"lda_results": lda_results,"img_url":url_predict, "img_results": img_results}
+    features_results = {"lda_results": lda_results, "img_url": url_predict, "img_results": img_results}
+    interests = {}
+    interests["default"] = True
+    ### Call it euristic threshold
+    skii_intents = ["лыж", "сноу"]
+    dive_intents = ["дайв"]
+    for interest in lda_results:
+        for ski_int, dive_int in zip(skii_intents, dive_intents):
+            if ski_int in interest:
+                interests["diving"] = True
+            if dive_int in interest:
+                interests["skiiing"] = True
+    features_results["interests_playable"] = interests
     USERS_FEATURES[user_id] = features_results
     return jsonify(features_results)
 
