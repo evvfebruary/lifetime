@@ -14,14 +14,19 @@ app = Quart(__name__)
 dash_index = 0
 prev_ond = ''
 
+USERS_FEATURES = {}
+
 
 @app.route("/user_features")
 async def user_features_cus():
     form = request.args
     user_id = form.get('user_id')
+    if user_id in USERS_FEATURES:
+        return USERS_FEATURES[user_id]
     urls = await uf.photos_info_by_user(user_id=user_id)
-    print(urls)
-    return jsonify(pr_img.summarize_user_interests(urls, user_id))
+    result_features = pr_img.summarize_user_interests(urls, user_id)
+    USERS_FEATURES[user_id] = result_features
+    return jsonify(result_features)
 
 
 @app.route("/user_features_all")
@@ -35,8 +40,11 @@ async def user_features_all():
     # print(urls)
     img_results = pr_img.summarize_user_interests(for_image, user_id)
     lda_results = pr_lda.group_topics(for_lda)
-
-    return jsonify({"lda_results":lda_results, "img_results":img_results})
+    if user_id in USERS_FEATURES:
+        return USERS_FEATURES[user_id]
+    features_results = {"lda_results": lda_results, "img_results": img_results}
+    USERS_FEATURES[user_id] = features_results
+    return jsonify(features_results)
 
 
 @app.route('/wthdash')
