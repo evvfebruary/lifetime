@@ -5,13 +5,15 @@ import os
 from quart import Quart, request, jsonify, send_file
 import glob
 import pathlib
-import prediction.image_tagging as pr
+import prediction.image_tagging as pr_img
+import prediction.lda_topics as pr_lda
 
 USERS_CACHING = {}
 
 app = Quart(__name__)
 dash_index = 0
 prev_ond = ''
+
 
 @app.route("/user_features")
 async def user_features_cus():
@@ -20,6 +22,21 @@ async def user_features_cus():
     urls = await uf.photos_info_by_user(user_id=user_id)
     print(urls)
     return jsonify(pr.summarize_user_interests(urls, user_id))
+
+
+@app.route("/user_features_all")
+async def user_features_cus():
+    form = request.args
+    user_id = form.get('user_id')
+    for_lda = await uf.group_txt_photos_by_user(user_id)
+    for_image = await uf.photos_info_by_user(user_id=user_id)
+    for each in for_lda:
+        for_image += each["post_photos"]
+    # print(urls)
+    img_results = pr_img.summarize_user_interests(for_image, user_id)
+    lda_results = pr_lda.group_topics(for_lda)
+
+    return jsonify({"lda_results":lda_results, "img_results":img_results})
 
 
 @app.route('/wthdash')
@@ -49,7 +66,8 @@ async def hello_world():
     for info in dash_info:
         directory = f"/home/ubuntu/lifetime/dashboards/{info}"
         print(destination)
-        urls = [str(each.absolute()) for each in pathlib.Path(directory).glob('**/*') if destination in str(each.absolute())]
+        urls = [str(each.absolute()) for each in pathlib.Path(directory).glob('**/*') if
+                destination in str(each.absolute())]
         print(urls)
         if len(urls) != 0:
             urls.insert(0, logos[info])
