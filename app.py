@@ -20,6 +20,7 @@ USERS_FEATURES = {}
 
 @app.route("/user_features")
 async def user_features_cus():
+    global USERS_FEATURES
     form = request.args
     user_id = form.get('user_id')
     if user_id in USERS_FEATURES:
@@ -32,6 +33,7 @@ async def user_features_cus():
 
 @app.route("/user_features_all")
 async def user_features_all():
+    global USERS_FEATURES
     form = request.args
     user_id = form.get('user_id')
     if user_id in USERS_FEATURES:
