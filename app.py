@@ -4,6 +4,7 @@ import features.weather as wth
 import os
 from quart import Quart, request, jsonify, send_file
 import glob
+import pathlib
 
 app = Quart(__name__)
 dash_index = 0
@@ -35,7 +36,8 @@ async def hello_world():
     files_tmp = []
     for info in dash_info:
         info_file = []
-        urls = [each for each in os.listdir(f"/home/ubuntu/lifetime/dashboards/{info}") if destination in each]
+        directory = f"/home/ubuntu/lifetime/dashboards/{info}"
+        urls = [each.absolute() for each in pathlib.Path(directory).glob('**/*') if destination in each]
         if len(urls) != 0:
             info_file.insert(0, logos[info])
             files_tmp.append(urls)
