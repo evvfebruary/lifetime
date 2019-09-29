@@ -21,7 +21,7 @@ async def user_features_cus():
     user_id = form.get('user_id')
     urls = await uf.photos_info_by_user(user_id=user_id)
     print(urls)
-    return jsonify(pr.summarize_user_interests(urls, user_id))
+    return jsonify(pr_img.summarize_user_interests(urls, user_id))
 
 
 @app.route("/user_features_all")
