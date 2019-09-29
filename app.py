@@ -35,11 +35,12 @@ async def hello_world():
         prev_ond = destination
     files_tmp = []
     for info in dash_info:
-        info_file = []
         directory = f"/home/ubuntu/lifetime/dashboards/{info}"
+        print(destination)
         urls = [str(each.absolute()) for each in pathlib.Path(directory).glob('**/*') if destination in str(each.absolute())]
+        print(urls)
         if len(urls) != 0:
-            info_file.insert(0, logos[info])
+            urls.insert(0, logos[info])
             files_tmp.append(urls)
     files = [item for sublist in files_tmp for item in sublist]
     # files = [f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png")]
