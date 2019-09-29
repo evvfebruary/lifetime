@@ -37,6 +37,7 @@ CARDS_STACK = {
 
 
 @app.route("/user_features")
+@cross_origin()
 async def user_features_cus():
     global USERS_FEATURES
     form = request.args
@@ -50,6 +51,7 @@ async def user_features_cus():
 
 
 @app.route("/cards")
+@cross_origin()
 async def user_cards():
     form = request.args
     user_id = form.get('user_id')
@@ -63,6 +65,7 @@ async def user_cards():
 
 
 @app.route("/user_features_all")
+@cross_origin()
 async def user_features_all():
     global USERS_FEATURES
     form = request.args
@@ -94,6 +97,7 @@ async def user_features_all():
 
 
 @app.route('/wthdash')
+@cross_origin()
 async def dashboards_info():
     diving_logo = f"/home/ubuntu/lifetime/dashboards/diving/logo_diving.jpg"
     weather_logo = f"/home/ubuntu/lifetime/dashboards/weather/logo_weather.jpg"
