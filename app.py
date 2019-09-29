@@ -12,10 +12,13 @@ prev_ond = ''
 
 @app.route('/wthdash')
 async def hello_world():
+    diving_logo = f"/home/ubuntu/lifetime/dashboards/diving/diving_weather.jpg"
     weather_logo = f"/home/ubuntu/lifetime/dashboards/weather/logo_weather.jpg"
+    logos = {"weather": weather_logo,
+             "diving": diving_logo}
     global dash_index
     global prev_ond
-    dash_info = ["weather", "sea_temp"]
+    dash_info = ["weather", "diving", "skiing", "food"]
     form = request.args
     destination = form.get('destination')
     if prev_ond == '':
@@ -25,12 +28,9 @@ async def hello_world():
         prev_ond = destination
     files = []
     for info in dash_info:
-        if info == "weather":
-            files.append(weather_logo)
-        url = f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png"
-        print(url)
-        if os.path.exists(url):
-            files.append(url)
+        files.append(logos[info])
+        urls = [each for each in os.listdir(f"/home/ubuntu/lifetime/dashboards/{info}") if destination in each]
+        files += urls
     # files = [f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png" for info in dash_info if os.path.exists(f"/home/ubuntu/lifetime/dashboards/{info}/{destination}_{info}.png")]
     # dashboard = await send_file(f"/Users/evv/PycharmProjects/lifetime/dashboards/weather/{destination}_weather.png")
     if dash_index > len(files) - 1:
