@@ -5,10 +5,21 @@ import os
 from quart import Quart, request, jsonify, send_file
 import glob
 import pathlib
+import prediction.image_tagging as pr
+
+USERS_CACHING = {}
 
 app = Quart(__name__)
 dash_index = 0
 prev_ond = ''
+
+@app.route("/user_features")
+async def user_features_cus():
+    form = request.args
+    user_id = form.get('user_id')
+    urls = await uf.photos_info_by_user(user_id)
+    print(urls)
+    return jsonify(pr.summarize_user_interests(urls, user_id))
 
 
 @app.route('/wthdash')
@@ -28,6 +39,7 @@ async def hello_world():
     dash_info = ["food", "weather", "diving", "skiing"]
     form = request.args
     destination = form.get('destination')
+    user_id = form.get('destination')
     if prev_ond == '':
         prev_ond = destination
     if prev_ond != destination:
