@@ -21,10 +21,10 @@ from collections import Counter
 
 
 def summarize_user_interests(user_photos_urls,
-                             user_id,
+                             user_photos_path='/home/jupyter-vkcracker/researches/data/test_path/',
                              path_to_model='/home/jupyter-vkcracker/researches/model',
                              path_to_detector='/home/jupyter-vkcracker/researches/detector'):
-    user_photos_path = f'/home/jupyter-vkcracker/researches/data/{user_id}/'
+    urls_written = []
 
     for url in user_photos_urls:
         if not os.path.exists(user_photos_path):
@@ -33,6 +33,7 @@ def summarize_user_interests(user_photos_urls,
 
         with open(user_photos_path + url.split('/')[-1], 'wb') as f:
             f.write(r.content)
+            urls_written.append(url)
 
     with open(path_to_model, 'rb') as f:
         learn = pickle.load(f)
@@ -40,16 +41,17 @@ def summarize_user_interests(user_photos_urls,
     with open(path_to_detector, 'rb') as f:
         outlier_detector = pickle.load(f)
 
-    photo_predictions = []
+    photo_predictions = {}
     classes = ['diving', 'skiing']
 
-    for f in os.listdir(user_photos_path):
-        torch_img = open_image(user_photos_path + f)
-        sklearn_img = skimage.io.imread(user_photos_path + f)
+    for url in urls_written:
+        img_path = user_photos_path + url.split('/')[-1]
+        torch_img = open_image(img_path)
+        sklearn_img = skimage.io.imread(img_path)
         img_resized = resize(sklearn_img, (64, 64), anti_aliasing=True, mode='reflect')
         if outlier_detector.predict([img_resized.flatten()]) == 1:
-            photo_predictions.append(classes[np.argmax(learn.predict(torch_img)[2])])
+            photo_predictions[url] = classes[np.argmax(learn.predict(torch_img)[2])]
         else:
-            photo_predictions.append('no category')
+            photo_predictions[url] = 'no category'
 
-    return dict(Counter(photo_predictions))
+    return dict(Counter(photo_predictions.values())), photo_predictions
