@@ -7,10 +7,12 @@ import glob
 import pathlib
 import prediction.image_tagging as pr_img
 import prediction.lda_topics as pr_lda
+from flask_cors import CORS
 
 USERS_CACHING = {}
 
 app = Quart(__name__)
+cors = CORS(app, resources={r"*": {"origins": "*"}})
 app.config['JSON_AS_ASCII'] = False
 dash_index = 0
 prev_ond = ''
@@ -48,7 +50,6 @@ async def user_features_cus():
 
 
 @app.route("/cards")
-@after_request
 async def user_cards():
     form = request.args
     user_id = form.get('user_id')
@@ -62,7 +63,6 @@ async def user_cards():
 
 
 @app.route("/user_features_all")
-@after_request
 async def user_features_all():
     global USERS_FEATURES
     form = request.args
@@ -94,7 +94,6 @@ async def user_features_all():
 
 
 @app.route('/wthdash')
-@after_request
 async def dashboards_info():
     diving_logo = f"/home/ubuntu/lifetime/dashboards/diving/logo_diving.jpg"
     weather_logo = f"/home/ubuntu/lifetime/dashboards/weather/logo_weather.jpg"
