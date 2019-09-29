@@ -45,8 +45,10 @@ async def user_cards():
     user_id = form.get('user_id')
     playable = USERS_FEATURES[user_id]["interests_playable"]
     cards = []
+    print(user_id, playable)
     for key in playable.keys():
         cards += CARDS_STACK[key]
+    print(cards)
     return jsonify(cards)
 
 
