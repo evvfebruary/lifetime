@@ -34,6 +34,8 @@ async def user_features_cus():
 async def user_features_all():
     form = request.args
     user_id = form.get('user_id')
+    if user_id in USERS_FEATURES:
+        return jsonify(USERS_FEATURES[user_id])
     for_lda = await uf.group_txt_photos_by_user(user_id)
     for_image = await uf.photos_info_by_user(user_id=user_id)
     for each in for_lda:
@@ -41,8 +43,6 @@ async def user_features_all():
     # print(urls)
     img_results,url_predict = pr_img.summarize_user_interests(for_image, user_id)
     lda_results = pr_lda.group_topics(for_lda)
-    if user_id in USERS_FEATURES:
-        return jsonify(USERS_FEATURES[user_id])
     features_results = {"lda_results": lda_results,"img_url":url_predict, "img_results": img_results}
     USERS_FEATURES[user_id] = features_results
     return jsonify(features_results)
