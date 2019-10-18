@@ -11,11 +11,11 @@ jobs:
           fingerprints:
             - "71:ee:4a:8e:be:5f:01:1f:47:9a:4b:1f:82:1a:90:73"
       - run: scp -o StrictHostKeyChecking=no -r ~/lifetime  evv@35.228.225.236:/home/evv
-      - run: ssh -o StrictHostKeyChecking=no evv@34.67.119.5 sudo cp /home/evv/lifetime/devops/lifetime.service /etc/systemd/system/
-      - run: ssh -o StrictHostKeyChecking=no evv@34.67.119.5 sudo systemctl start lifetime
-      - run: ssh -o StrictHostKeyChecking=no evv@34.67.119.5 sudo systemctl daemon-reload
-      - run: ssh -o StrictHostKeyChecking=no evv@34.67.119.5 sudo pip3 install -r /home/evv/lifetime/requirements.txt --user
-      - run: ssh -o StrictHostKeyChecking=no evv@34.67.119.5 sudo systemctl is-active --quiet lifetime
+      - run: ssh -o StrictHostKeyChecking=no evv@35.228.225.236 sudo cp /home/evv/lifetime/devops/lifetime.service /etc/systemd/system/
+      - run: ssh -o StrictHostKeyChecking=no evv@35.228.225.236 sudo systemctl start lifetime
+      - run: ssh -o StrictHostKeyChecking=no evv@35.228.225.236 sudo systemctl daemon-reload
+      - run: ssh -o StrictHostKeyChecking=no evv@35.228.225.236 sudo pip3 install -r /home/evv/lifetime/requirements.txt --user
+      - run: ssh -o StrictHostKeyChecking=no evv@35.228.225.236 sudo systemctl is-active --quiet lifetime
 workflows:
   version: 2
   build_and_test:
